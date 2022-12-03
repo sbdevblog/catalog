@@ -1,0 +1,118 @@
+<?php
+/**
+ * @copyright Copyright (c) sbdevblog (http://www.sbdevblog.com)
+ */
+
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$viewModel = $block->getViewModel();
+
+$productCollection = $viewModel->getSimpleProducts();
+?>
+
+<table>
+    <thead>
+        <th>
+            <input type="checkbox"  class="all_products_checked"  />
+        </th>
+
+        <th>
+            <?=$escaper->escapeHtml(__("Thumbnail")) ?>
+        </th>
+        <th>
+            <?=$escaper->escapeHtml(__("Product Name")) ?>
+        </th>
+        <th>
+            <?=$escaper->escapeHtml(__("Price")) ?>
+        </th>
+        <th>
+
+        </th>
+    </thead>
+    <tbody>
+
+    <?php
+    foreach ($productCollection as $product) {
+        ?>
+        <tr>
+            <td>
+                <input type="checkbox"  class="products_checked"
+                       id="product_<?=$escaper->escapeHtml($product->getId())?>"
+                       name="products[]" value="<?=$escaper->escapeHtml($product->getId()) ?> " />
+            </td>
+            <td>
+                <a href="<?=$escaper->escapeUrl($product->getProductUrl()) ?>">
+                    <img src="<?=$escaper->escapeUrl($viewModel->getProudctImageUrl($product)) ?>" />
+                </a>
+            </td>
+            <td>
+                <a href="<?=$escaper->escapeUrl($product->getProductUrl()) ?>">
+                <?=$escaper->escapeHtml(__($product->getName())) ?>
+                </a>
+            </td>
+            <td>
+            <?=$escaper->escapeHtml($viewModel->getFormmatedPrice($product->getPrice())) ?>
+            </td>
+            <td>
+                <form data-role="tocart-form"
+                      action="<?=$escaper->escapeUrl($viewModel->getAddToCartUrl($product)); ?> ?>"
+                      method="post">
+                <?=$block->getBlockHtml('formkey')?>
+                    <div class="btn">
+                        <button type="submit" title="Add to Cart" class="action tocart primary">
+                            <span><?=$escaper->escapeHtml(__("Add to Cart"))?></span>
+                        </button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        <?php
+    }
+    ?>
+    <tfoot>
+        <tr>
+            <td>
+
+                 <form action="<?=$escaper->escapeUrl($block->getUrl("sbdevblog/products/addtocart")) ?>"
+                       method="post" id="multiplecartform">
+                    <?=$block->getBlockHtml('formkey')?>
+                     <input type="hidden" id="product_ids" name="product_ids"/>
+                    <div class="btn">
+                        <button type="button" title="Add to Cart" class="multiplecart primary">
+                            <span><?=$escaper->escapeHtml(__("Add to Cart"))?></span>
+                        </button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+    </tbody>
+</table>
+<script>
+    require(['jquery'], function($) {
+        jQuery(".multiplecart").on("click", function(){
+            var product_ids = [];
+            document.querySelectorAll('.products_checked').forEach(function(elem) {
+                if(elem.checked && elem.value !== undefined){
+                    product_ids.push(elem.value);
+                }
+            });
+            if(parseInt(product_ids.length) === 0) {
+                alert("Please Check At Least One Checkbox");
+                return;
+            }
+
+            var products = JSON.stringify(product_ids);
+            $("#product_ids").val(JSON.parse(products));
+
+            $("#multiplecartform").submit();
+        });
+        jQuery(".all_products_checked").on("click", function(){
+            var aa = document.querySelectorAll('.products_checked');
+            for (var i = 0; i < aa.length; i++){
+                aa[i].click();
+            }
+        })
+    });
+</script>
