@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright Copyright (c) sbdevblog (http://www.sbdevblog.com)
+ */
 
 namespace SbDevBlog\Catalog\Services;
 
