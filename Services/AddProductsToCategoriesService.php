@@ -44,7 +44,7 @@ class AddProductsToCategoriesService
      */
     public function addProductToCategories(string $sku, array $categoryIds):bool
     {
-        try { 
+        try {
                 $this->categoryLinkManagement->assignProductToCategories(
                     $sku,
                     $categoryIds
@@ -53,7 +53,6 @@ class AddProductsToCategoriesService
             } catch (CouldNotSaveException $e) {
                 $this->logger->error($e->getMessage());
             }
-        }
         return false;
     }
 }
