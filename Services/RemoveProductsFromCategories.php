@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (c) sbdevblog (http://www.sbdevblog.com)
  */
+
 namespace SbDevBlog\Catalog\Services;
 
 use Magento\Catalog\Model\CategoryLinkRepository;
@@ -25,13 +26,14 @@ class RemoveProductsFromCategories
     /**
      * Constructor For Service
      *
-     * @param CategoryLinkRepository $categoryLinkRepository,
+     * @param CategoryLinkRepository $categoryLinkRepository ,
      * @param LoggerInterface $logger
      */
     public function __construct(
         CategoryLinkRepository $categoryLinkRepository,
-        LoggerInterface $logger
-    ){
+        LoggerInterface        $logger
+    )
+    {
         $this->categoryLinkRepository = $categoryLinkRepository;
         $this->logger = $logger;
     }
@@ -44,14 +46,12 @@ class RemoveProductsFromCategories
      *
      * @return bool
      */
-    public function removeProductsFromCategory(int $categoryId, string $sku):bool
+    public function removeProductsFromCategory(int $categoryId, string $sku): bool
     {
-        try { 
-                $this->categoryLinkRepository->deleteByIds($categoryId, $sku);
-                return true;
-            } catch (CouldNotSaveException|InputException|StateException $e) {
-                $this->logger->error($e->getMessage());
-            }
+        try {
+            return $this->categoryLinkRepository->deleteByIds($categoryId, $sku);
+        } catch (CouldNotSaveException|InputException|StateException $e) {
+            $this->logger->error($e->getMessage());
         }
         return false;
     }
