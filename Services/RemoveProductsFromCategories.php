@@ -32,8 +32,7 @@ class RemoveProductsFromCategories
     public function __construct(
         CategoryLinkRepository $categoryLinkRepository,
         LoggerInterface        $logger
-    )
-    {
+    ) {
         $this->categoryLinkRepository = $categoryLinkRepository;
         $this->logger = $logger;
     }

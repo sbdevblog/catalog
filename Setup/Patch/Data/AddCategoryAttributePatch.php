@@ -11,7 +11,7 @@ use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Catalog\Model\Category;
 
-class addCategoryAttributePatch implements DataPatchInterface
+class AddCategoryAttributePatch implements DataPatchInterface
 {
     /**
      * ModuleDataSetupInterface
@@ -20,8 +20,6 @@ class addCategoryAttributePatch implements DataPatchInterface
      */
     private ModuleDataSetupInterface $moduleDataSetup;
     /**
-     * EavSetupFactory
-     *
      * @var EavSetupFactory
      */
     private EavSetupFactory $eavSetupFactory;
@@ -33,8 +31,7 @@ class addCategoryAttributePatch implements DataPatchInterface
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         EavSetupFactory          $eavSetupFactory
-    )
-    {
+    ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->eavSetupFactory = $eavSetupFactory;
     }
@@ -78,5 +75,6 @@ class addCategoryAttributePatch implements DataPatchInterface
             'unique' => false,
             'apply_to' => '',
         ]);
+        return $this;
     }
 }

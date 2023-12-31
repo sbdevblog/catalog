@@ -23,13 +23,11 @@ class AdditionalProductInfo implements DataPatchInterface
      *
      * @var ModuleDataSetupInterface
      */
-    private $moduleDataSetup;
+    private ModuleDataSetupInterface $moduleDataSetup;
     /**
-     * EavSetupFactory
-     *
      * @var EavSetupFactory
      */
-    private $eavSetupFactory;
+    private EavSetupFactory $eavSetupFactory;
 
     /**
      * @param ModuleDataSetupInterface $moduleDataSetup
@@ -38,8 +36,7 @@ class AdditionalProductInfo implements DataPatchInterface
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         EavSetupFactory          $eavSetupFactory
-    )
-    {
+    ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->eavSetupFactory = $eavSetupFactory;
     }
@@ -68,6 +65,7 @@ class AdditionalProductInfo implements DataPatchInterface
             'unique' => false,
             'apply_to' => '',
         ]);
+        return $this;
     }
 
     /**

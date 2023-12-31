@@ -12,27 +12,27 @@ class PricingService
   /**
    * @var PricingHelper
    */
-  protected PricingHelper $priceHelper;
-  
+    protected PricingHelper $priceHelper;
+
   /**
    * Constructor
    *
    * @param PricingHelper $priceHelper
    */
-  public function __construct(PricingHelper $priceHelper)
-  {
-      $this->priceHelper = $priceHelper;
-  }
-  
+    public function __construct(PricingHelper $priceHelper)
+    {
+        $this->priceHelper = $priceHelper;
+    }
+
   /**
    * Get Formatted Price
    *
-   * @var float $price
+   * @param float $price
    *
    * @return string
    */
-  public function getFormattedPrice(float $price):string
-  {
-      return $this->priceHelper->currency($price, true, false);
-  }
+    public function getFormattedPrice(float $price):string
+    {
+        return $this->priceHelper->currency($price, true, false);
+    }
 }

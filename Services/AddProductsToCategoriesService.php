@@ -29,7 +29,7 @@ class AddProductsToCategoriesService
     public function __construct(
         CategoryLinkManagementInterface $categoryLinkManagement,
         LoggerInterface $logger
-    ){
+    ) {
         $this->categoryLinkManagement = $categoryLinkManagement;
         $this->logger = $logger;
     }
@@ -50,9 +50,9 @@ class AddProductsToCategoriesService
                     $categoryIds
                 );
                 return true;
-            } catch (CouldNotSaveException $e) {
-                $this->logger->error($e->getMessage());
-            }
+        } catch (CouldNotSaveException $e) {
+            $this->logger->error($e->getMessage());
+        }
         return false;
     }
 }
